@@ -98,6 +98,63 @@ namespace Class_homework
             Student worstStudent = students.OrderBy(s => s.GetAverageGrade()).First();
             students.Remove(worstStudent);
         }
+
+        public static bool operator true(Group g)
+        {
+            return g.students.Count > 0;
+        }
+
+        public static bool operator false(Group g)
+        {
+            return g.students.Count == 0;
+        }
+
+        public static bool operator >(Group left, Group right)
+        {
+
+            return left.students.Count() > right.students.Count();
+        }
+
+        public static bool operator <(Group left, Group right)
+        {
+            return left.students.Count() < right.students.Count();
+        }
+        public static bool operator ==(Group left, Group right)
+        {
+
+            return left.students.Count() == right.students.Count();
+        }
+
+        public static bool operator !=(Group left, Group right)
+        {
+            return left.students.Count() != right.students.Count();
+        }
+
+        public Student this[int index]
+        {
+            get
+            {
+                return students[index];
+            }
+        }
+
+        public override bool Equals(object some_group)
+        {
+            var who_is_it = some_group as Group;
+            if (who_is_it == null)
+            {
+                Console.WriteLine("this is not Student, or reference is null");
+                return false;
+            }
+
+            return who_is_it.students.Count() == this.students.Count();
+        }
+
+        public override int GetHashCode()
+        {
+            return (students.Count()+courseNumber).GetHashCode();
+        }
+
     }
 
 }

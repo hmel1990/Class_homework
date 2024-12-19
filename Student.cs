@@ -35,7 +35,7 @@ namespace Class_homework
         }
 
         public Student(string surName, string name, string secondName, DateTime birthDate,
-                       string address, string phoneNumber)            
+                       string address, string phoneNumber)
         {
             this.surName = surName;
             this.name = name;
@@ -46,7 +46,7 @@ namespace Class_homework
         }
 
         // Геттеры и сеттеры
-
+        #region Геттеры и сеттеры
         public void SetsurName(string surName) { this.surName = surName; }
         public string GetsurName() { return surName; }
 
@@ -64,20 +64,22 @@ namespace Class_homework
 
         public void SetPhoneNumber(string phoneNumber) { this.phoneNumber = phoneNumber; }
         public string GetPhoneNumber() { return phoneNumber; }
+        #endregion
 
+        #region сеттеры для List
         // в Коллекциях оценок заменил Сеттеры на Add-еры, т.к. это будет логичнее, ситуаций когда наперед знаешь все оценки мало
         public void AddCredits(int credit)
         { this.credits.Add(credit); }
         public List<int> GetCredits() { return credits; }
         public void AddCourseWorks(int cours)
-        { this.credits.Add(cours); }
+        { this.courseWorks.Add(cours); }
         public List<int> GetCourseWorks() { return courseWorks; }
-
         public void AddExams(int Exam)
-        { this.credits.Add(Exam); }
+        { this.exams.Add(Exam); }
         public List<int> GetExams() { return exams; }
+        #endregion
 
-       
+
 
         // Метод для отображения данных о студенте
         public void ShowStudentInfo()
@@ -114,6 +116,52 @@ namespace Class_homework
 
             return sum / allGrades.Count;
         }
+        public static bool operator true(Student s)
+        {
+            return s.GetAverageGrade() >= 7;
+        }
+        public static bool operator false(Student s)
+        {
+            return s.GetAverageGrade() < 7;
+        }
+
+        public static bool operator > (Student left, Student right)
+        {
+            
+            return left.GetAverageGrade() > right.GetAverageGrade();
+        }
+
+        public static bool operator <(Student left, Student right)
+        {
+            return left.GetAverageGrade() < right.GetAverageGrade();
+        }
+        public static bool operator == (Student left, Student right)
+        {
+            return left.GetAverageGrade() == right.GetAverageGrade();
+        }
+
+        public static bool operator !=(Student left, Student right)
+        {
+            return left.GetAverageGrade() != right.GetAverageGrade();
+        }
+
+        public override bool Equals(object some_student)
+        {           
+            var who_is_it = some_student as Student;
+            if (who_is_it == null)
+            {
+                Console.WriteLine("this is not Student, or reference is null");
+                return false;
+            }
+
+            return who_is_it.GetAverageGrade() == this.GetAverageGrade();
+        }
+
+        public override int GetHashCode()
+        {
+            return GetAverageGrade().GetHashCode();
+        }
+
     }
 
 }
