@@ -17,6 +17,66 @@ namespace Class_homework
         private string specialization;
         private int courseNumber;
 
+        //____________________ Свойства ______________________________________________________
+        #region Свойства
+        public List<Student> ListStudent 
+        {
+            get => students;
+            set => students = value; 
+        }
+        public List<Student> StudentToList // добавление в конец списка студентов еще одного списка со студентами (для слияния груп например)
+        {
+            set => students.AddRange(value);
+        }
+        public string GroupName
+        {
+            get => groupName;
+            set => groupName = value;
+        }
+        public string Specialization
+        {
+            get => specialization;
+            set => specialization = value;
+        }
+        public int CourseNumber
+        {
+            get => courseNumber;
+            set => courseNumber = value;
+        }
+        //__________________________________________________________________________
+        #endregion
+
+        #region сеттеры и геттеры
+        public void SetGroupName(string groupName)
+        {
+            if (groupName == "")
+            { throw new Exception("Название группы не должно быть пустым"); }
+            this.groupName = groupName;
+        }
+
+        public string GetGroupName ()
+            { return this.groupName; }
+
+        public void SetSpecialization (string specialization)
+        {
+            if (specialization == "")
+            { throw new Exception("Название специальности не должно быть пустым"); }
+            this.specialization = specialization; 
+        }
+        public string GetSpecialization()
+        { return this.specialization; }
+
+        public void SetCourseNumber (int courseNumber)
+            {
+            if (courseNumber <= 0) 
+            { throw new Exception ("Номер группы должен быть больше 0"); }
+            this.courseNumber = courseNumber; }
+        public int GetCourseNumber()
+        { return this.courseNumber; }
+
+        #endregion
+
+        #region Конструкторы
         // Конструктор по умолчанию
         public Group()
         {
@@ -34,6 +94,7 @@ namespace Class_homework
             this.specialization = specialization;
             this.courseNumber = courseNumber;
         }
+        #endregion
 
         // Методы
 
@@ -99,6 +160,8 @@ namespace Class_homework
             students.Remove(worstStudent);
         }
 
+
+        #region перегрузка операторов
         public static bool operator true(Group g)
         {
             return g.students.Count > 0;
@@ -154,6 +217,7 @@ namespace Class_homework
         {
             return (students.Count()+courseNumber).GetHashCode();
         }
+        #endregion
 
     }
 

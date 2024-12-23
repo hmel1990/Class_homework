@@ -20,6 +20,149 @@ namespace Class_homework
         private List<int> courseWorks;   // Курсовые работы
         private List<int> exams;         // Экзамены
 
+
+        //____________________ Свойства ______________________________________________________
+        #region Свойства
+        public List<int> Credits
+        {
+            get => credits;
+            set => credits = value;
+        }
+     public List<int> CourseWorks
+        {
+            get => courseWorks;
+            set => courseWorks = value;
+        }
+     public List<int> Exams
+        {
+            get => exams;
+            set => exams = value;
+        }
+
+        public string SurName
+        {
+            get => surName;
+            set => surName = value;
+        }
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+        public string SecondName
+        {
+            get => secondName;
+            set => secondName = value;
+        }
+        public DateTime BirthDate
+        {
+            get => birthDate;
+            set => birthDate = value;
+        }
+        public string Address
+        {
+            get => address;
+            set => address = value;
+        }
+        public string PhoneNumber
+        {
+            get => phoneNumber;
+            set => phoneNumber = value;
+        }
+        #endregion
+
+
+        // Геттеры и сеттеры
+        #region Геттеры и сеттеры
+        public void SetsurName(string surName) 
+        {
+            if (surName == "")
+            {
+                throw new Exception("Фамилия не может быть пустым или содержать только пробелы.");
+            }
+            this.surName = surName; 
+        }
+        public string GetsurName() { return surName; }
+
+        public void SetName(string name)
+        {
+            if (name == "")
+            {
+                throw new Exception("Имя не может быть пустым или содержать только пробелы.");
+            }
+            this.name = name;
+        }
+        public string GetName() { return name; }
+
+        public void SetSecondName(string secondName)
+        {
+            if (secondName == "")
+            {
+                throw new Exception("Отчество не может быть пустым или содержать только пробелы.");
+            }
+            this.secondName = secondName;
+        }
+
+        public string GetSecondName() { return secondName; }
+
+        public void SetBirthDate(DateTime birthDate)
+        {
+            if (birthDate > DateTime.Now)
+            {
+                throw new Exception("Дата рождения не может быть в будущем.");
+            }
+            this.birthDate = birthDate;
+        }
+
+        public DateTime GetBirthDate() { return birthDate; }
+
+        public void SetAddress(string address)
+        {
+            if (address == "")
+            {
+                throw new Exception("Адрес не может быть пустым или содержать только пробелы.");
+            }
+            this.address = address;
+        }
+        public string GetAddress() { return address; }
+
+        public void SetPhoneNumber(string phoneNumber)
+        {
+            if (phoneNumber == "")
+            {
+                throw new Exception("Номер телефона не может быть пустым и должен содержать не менее 7 символов.");
+            }
+            this.phoneNumber = phoneNumber;
+        }
+        public string GetPhoneNumber() { return phoneNumber; }
+        #endregion
+
+        #region сеттеры для List
+        // в Коллекциях оценок заменил Сеттеры на Add-еры, т.к. это будет логичнее, ситуаций когда наперед знаешь все оценки мало
+        public void AddCredits(int credit)
+        { 
+            if(credit < 0)
+            { throw new Exception("Оценка не может быть меньше 0"); }
+            this.credits.Add(credit); 
+        }
+        public List<int> GetCredits() { return credits; }
+        public void AddCourseWorks(int cours)
+        {
+            if (cours < 0)
+            { throw new Exception("Оценка не может быть меньше 0"); }
+            this.courseWorks.Add(cours); }
+        public List<int> GetCourseWorks() { return courseWorks; }
+        public void AddExams(int Exam)
+        {
+            if (Exam < 0)
+            { throw new Exception("Оценка не может быть меньше 0"); }
+            this.exams.Add(Exam); }
+        public List<int> GetExams() { return exams; }
+        #endregion
+
+
+
+
         // Конструкторы
         public Student()
         {
@@ -45,40 +188,7 @@ namespace Class_homework
             this.phoneNumber = phoneNumber;
         }
 
-        // Геттеры и сеттеры
-        #region Геттеры и сеттеры
-        public void SetsurName(string surName) { this.surName = surName; }
-        public string GetsurName() { return surName; }
-
-        public void SetName(string name) { this.name = name; }
-        public string GetName() { return name; }
-
-        public void SetSecondName(string secondName) { this.secondName = secondName; }
-        public string GetSecondName() { return secondName; }
-
-        public void SetBirthDate(DateTime birthDate) { this.birthDate = birthDate; }
-        public DateTime GetBirthDate() { return birthDate; }
-
-        public void SetAddress(string address) { this.address = address; }
-        public string GetAddress() { return address; }
-
-        public void SetPhoneNumber(string phoneNumber) { this.phoneNumber = phoneNumber; }
-        public string GetPhoneNumber() { return phoneNumber; }
-        #endregion
-
-        #region сеттеры для List
-        // в Коллекциях оценок заменил Сеттеры на Add-еры, т.к. это будет логичнее, ситуаций когда наперед знаешь все оценки мало
-        public void AddCredits(int credit)
-        { this.credits.Add(credit); }
-        public List<int> GetCredits() { return credits; }
-        public void AddCourseWorks(int cours)
-        { this.courseWorks.Add(cours); }
-        public List<int> GetCourseWorks() { return courseWorks; }
-        public void AddExams(int Exam)
-        { this.exams.Add(Exam); }
-        public List<int> GetExams() { return exams; }
-        #endregion
-
+        
 
 
         // Метод для отображения данных о студенте
@@ -116,6 +226,8 @@ namespace Class_homework
 
             return sum / allGrades.Count;
         }
+
+        #region перегрузка операторов
         public static bool operator true(Student s)
         {
             return s.GetAverageGrade() >= 7;
@@ -161,6 +273,7 @@ namespace Class_homework
         {
             return GetAverageGrade().GetHashCode();
         }
+        #endregion
 
     }
 
