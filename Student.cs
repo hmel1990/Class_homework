@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Class_homework
+namespace ClassHomework
 {
 
-    internal class Student
+    internal class Student : ICloneable
     {
         internal string surName;
         internal string name;
@@ -20,6 +20,21 @@ namespace Class_homework
         private List<int> courseWorks;   // Курсовые работы
         private List<int> exams;         // Экзамены
 
+        public object Clone()
+        {
+            return new Student 
+            { 
+                surName = this.surName, 
+                name = this.name, 
+                secondName = this.secondName, 
+                birthDate = this.birthDate, 
+                address = this.address, 
+                phoneNumber = this.phoneNumber, 
+                credits = new List<int>(this.credits), 
+                courseWorks = new List<int>(this.courseWorks), 
+                exams = new List<int>(this.exams) 
+            };
+        }
 
         //____________________ Свойства ______________________________________________________
         #region Свойства
@@ -71,8 +86,7 @@ namespace Class_homework
         }
         #endregion
 
-
-        // Геттеры и сеттеры
+        // ____________________ Геттеры и сеттеры ______________________________________________________
         #region Геттеры и сеттеры
         public void SetsurName(string surName) 
         {
@@ -160,38 +174,28 @@ namespace Class_homework
         public List<int> GetExams() { return exams; }
         #endregion
 
+        // ____________________ Конструкторы ______________________________________________________
+        #region Конструкторы
+        public Student() : this("Shevchenko", "Taras", "Grihorovich", new DateTime(1814, 3, 9), "Ukraine", "777") { }
 
-
-
-        // Конструкторы
-        public Student()
+        public Student(string surName = "Shevchenko", string name = "Taras", string secondName = "Grihorovich", DateTime birthDate = default, string address = "Ukraine", string phoneNumber = "777")
         {
-            surName = "Shevchenko";
-            name = "Taras";
-            secondName = "Grihorovich";
-            birthDate = new DateTime(1814, 3, 9);
-            address = "Ukraine";
-            phoneNumber = "777";
+            if (birthDate == default) { birthDate = new DateTime(1814, 3, 9); }
+
+            SetsurName(surName);
+            SetName(name);
+            SetSecondName(secondName);
+            SetBirthDate(birthDate);
+            SetAddress(address);
+            SetPhoneNumber(phoneNumber);
             credits = new List<int>();
             courseWorks = new List<int>();
             exams = new List<int>();
         }
+        #endregion
 
-        public Student(string surName, string name, string secondName, DateTime birthDate,
-                       string address, string phoneNumber)
-        {
-            this.surName = surName;
-            this.name = name;
-            this.secondName = secondName;
-            this.birthDate = birthDate;
-            this.address = address;
-            this.phoneNumber = phoneNumber;
-        }
-
-        
-
-
-        // Метод для отображения данных о студенте
+        // ____________________ Метод для отображения данных о студенте ______________________________________________________
+        #region Метод для отображения данных о студенте
         public void ShowStudentInfo()
         {
             Console.WriteLine($"ФИО: {surName} {name} {secondName}");
@@ -202,15 +206,19 @@ namespace Class_homework
             Console.WriteLine($"Оценки за курсовые: {string.Join(", ", courseWorks)}");
             Console.WriteLine($"Оценки за экзамены: {string.Join(", ", exams)}");
         }
+        #endregion
 
-        // Переопределение ToString()
+        // ____________________ Переопределение ToString() ______________________________________________________
+        #region Переопределение ToString()
         public override string ToString()
         {
             return $"{surName} {name} {secondName} - {birthDate.ToShortDateString()}";
         }
+        #endregion
 
 
-        // Подсчёт среднего балла
+        // ____________________ Подсчёт среднего балла ______________________________________________________
+        #region Подсчёт среднего балла
         public double GetAverageGrade()
         {
             var allGrades = new List<int>();
@@ -226,7 +234,9 @@ namespace Class_homework
 
             return sum / allGrades.Count;
         }
+        #endregion
 
+        // ____________________ перегрузка операторов ______________________________________________________
         #region перегрузка операторов
         public static bool operator true(Student s)
         {

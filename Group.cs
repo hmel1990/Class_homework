@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 
 
-namespace Class_homework
+namespace ClassHomework
 {
 
-    internal class Group
+    internal class Group:ICloneable
     {
         // Поля
         private List<Student> students;
@@ -17,6 +17,18 @@ namespace Class_homework
         private string specialization;
         private int courseNumber;
 
+
+        public object Clone()
+        {
+
+            return new Group 
+            {
+                students = new List<Student>(this.students),
+                groupName = this.groupName,
+                specialization = this.specialization,
+                courseNumber = this.courseNumber
+            };
+        }
         //____________________ Свойства ______________________________________________________
         #region Свойства
         public List<Student> ListStudent 
