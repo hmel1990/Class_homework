@@ -12,7 +12,7 @@ namespace ClassHomework
     internal class Group:ICloneable
     {
         // Поля
-        private List<Student> students;
+        public List<Student> students;
         private string groupName;
         private string specialization;
         private int courseNumber;
@@ -21,13 +21,20 @@ namespace ClassHomework
         public object Clone()
         {
 
-            return new Group 
+
+            return new Group
             {
-                students = new List<Student>(this.students),
                 groupName = this.groupName,
                 specialization = this.specialization,
-                courseNumber = this.courseNumber
+                courseNumber = this.courseNumber,
+                students = this.students.Select(st => (Student) st.Clone()).ToList()
+                //students = new List<Student>() //сделал сначала через foreach, но потом переделал через лямбда выражение
             };
+            //foreach (Student s in this.students)
+            //{
+            //    students.Add((Student)s.Clone());
+            //}
+
         }
         //____________________ Свойства ______________________________________________________
         #region Свойства

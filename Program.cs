@@ -55,6 +55,17 @@
             // Во второй группе осталось по прежнему 2 студента
             Console.WriteLine("\n\n ShowAllStudent from group2");
             group2.ShowAllStudents();
+            group2.students[1].AddExams(1);
+
+            Console.WriteLine("\n_____________________________________________\n");
+            
+            group2.students[1].ShowStudentInfo();
+
+            Console.WriteLine("\n_____________________________________________\n");
+
+
+            group1.students[1].ShowStudentInfo();
+            
 
 
 
