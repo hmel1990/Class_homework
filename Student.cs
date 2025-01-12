@@ -20,6 +20,41 @@ namespace ClassHomework
         private List<int> courseWorks;   // Курсовые работы
         private List<int> exams;         // Экзамены
 
+
+        //________________________ IComparer_____________________________________________________
+        public class AverageGradeComparer : IComparer<Student>
+        {
+            public int Compare(Student? x, Student? y)
+            {
+                if (x == null || y == null) throw new Exception("Студент куда-то пропал");
+                if (x.GetAverageGrade() < y.GetAverageGrade()) return -1;
+                if (x.GetAverageGrade() > y.GetAverageGrade()) return 1;
+                return 0;               
+            }
+        }
+        public class FIO : IComparer<Student>
+        {
+            public int Compare(Student? x, Student? y)
+            {
+                if (x == null || y == null) throw new Exception("Студент куда-то пропал");
+
+                if (x.surName.CompareTo(y.surName) == 0)
+                {
+                    if (x.name.CompareTo(y.name) ==0)
+                    {
+                        return x.secondName.CompareTo(y.secondName);
+                    }
+                    return x.name.CompareTo(y.name);
+                }
+                return x.surName.CompareTo(y.surName);
+
+            }
+        }
+
+
+
+
+        //________________________ IClonable_____________________________________________________
         public object Clone()
         {
             return new Student 
@@ -233,10 +268,12 @@ namespace ClassHomework
                 sum += grade;
 
             return sum / allGrades.Count;
+            //return allGrades.Average();
         }
         #endregion
 
         // ____________________ перегрузка операторов ______________________________________________________
+        /*
         #region перегрузка операторов
         public static bool operator true(Student s)
         {
@@ -284,7 +321,9 @@ namespace ClassHomework
             return GetAverageGrade().GetHashCode();
         }
         #endregion
-
+         
+         
+         */
     }
 
 }

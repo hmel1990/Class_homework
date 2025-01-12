@@ -18,6 +18,9 @@ namespace ClassHomework
         private int courseNumber;
 
 
+
+
+        //________________________ IClonable_____________________________________________________
         public object Clone()
         {
 
@@ -117,6 +120,18 @@ namespace ClassHomework
 
         // Методы
 
+        public void SortByAverageGrade()
+        {
+            //students.Sort();
+            students.Sort(new Student.AverageGradeComparer());
+        }
+
+        public void SortByFIO()
+        {
+            //students.Sort();
+            students.Sort(new Student.FIO());
+        }
+
         // Добавление студента
         public void AddStudent(Student student)
         {
@@ -140,6 +155,17 @@ namespace ClassHomework
             }        
         }
 
+        public void ShowAllStudentsWithoutSort()
+        {
+            Console.WriteLine($"Группа: {groupName}, Специализация: {specialization}, Курс: {courseNumber}");
+            int count = 1;
+
+            foreach (var student in students)
+            {
+                Console.WriteLine($"{count} {student.surName} {student.name}");
+                count++;
+            }
+        }
 
         // Редактирование данных студента
         public void EditStudent(int index, Student student)
