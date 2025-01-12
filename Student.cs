@@ -273,7 +273,7 @@ namespace ClassHomework
         #endregion
 
         // ____________________ перегрузка операторов ______________________________________________________
-        /*
+        
         #region перегрузка операторов
         public static bool operator true(Student s)
         {
@@ -294,26 +294,27 @@ namespace ClassHomework
         {
             return left.GetAverageGrade() < right.GetAverageGrade();
         }
-        public static bool operator == (Student left, Student right)
+        public static bool operator == (Student? left, Student? right)
         {
-            return left.GetAverageGrade() == right.GetAverageGrade();
+            if (ReferenceEquals(left,null) && ReferenceEquals(right,null)) return true;
+            if (ReferenceEquals(left, null) || ReferenceEquals(right, null)) return false;
+            return left.Equals(right);
+
+            //return left.GetAverageGrade() == right.GetAverageGrade();
         }
 
-        public static bool operator !=(Student left, Student right)
+        public static bool operator !=(Student? left, Student? right)
         {
-            return left.GetAverageGrade() != right.GetAverageGrade();
+            return !(left == right);
         }
 
         public override bool Equals(object some_student)
-        {           
-            var who_is_it = some_student as Student;
-            if (who_is_it == null)
+        {
+            if (some_student is Student other)
             {
-                Console.WriteLine("this is not Student, or reference is null");
-                return false;
+                return this.GetAverageGrade() == other.GetAverageGrade();
             }
-
-            return who_is_it.GetAverageGrade() == this.GetAverageGrade();
+            return false;
         }
 
         public override int GetHashCode()
@@ -323,7 +324,7 @@ namespace ClassHomework
         #endregion
          
          
-         */
+         
     }
 
 }

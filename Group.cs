@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace ClassHomework
 {
 
-    internal class Group:ICloneable
+    internal class Group:ICloneable,IEnumerable <Student>
     {
         // Поля
         public List<Student> students;
@@ -18,6 +19,60 @@ namespace ClassHomework
         private int courseNumber;
 
 
+        //________________________ IEnumerable _____________________________________________________
+        public IEnumerator<Student> GetEnumerator()
+        {
+            return new GroupEnumerator(students);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public class GroupEnumerator: IEnumerator<Student>
+        {
+            private List<Student>? studentsForNumerate = null;
+            int index = -1;
+
+            public Student Current
+            {
+                get
+                {
+                    return studentsForNumerate[index];
+                }
+            }
+            object IEnumerator.Current
+            {
+                get
+                {
+                    return Current;
+                }
+            }
+            public GroupEnumerator (List <Student> students)
+            {
+                studentsForNumerate = students;
+            }
+
+            public bool MoveNext()
+            {
+                index++;
+                if (index < studentsForNumerate.Count())
+                { 
+                    return true; 
+                }
+
+                return false;
+            }
+            public void Reset ()
+            {
+                index = -1;
+            }
+            public void Dispose()
+            {
+                
+            }
+        }
 
 
         //________________________ IClonable_____________________________________________________

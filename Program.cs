@@ -17,8 +17,8 @@
             student.AddExams(12);
 
             student.AddCourseWorks(10);
-            student.AddCourseWorks(6);
-            student.AddCourseWorks(5);
+            student.AddCourseWorks(7);
+            student.AddCourseWorks(8);
 
             //Клонируем студента с певрого студента
             Student student2 = (Student) student.Clone();
@@ -64,6 +64,14 @@
             group1.ShowAllStudentsWithoutSort();
 
 
+            Console.WriteLine("\n_________ foreach __________");
+
+            int count = 1;//для отображения порядковых номеров
+            foreach (Student s in group1)
+            {                
+                Console.WriteLine(Convert.ToString(count) + " " + s);
+                count++;
+            }
 
 
 
