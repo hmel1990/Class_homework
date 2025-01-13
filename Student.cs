@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace ClassHomework
 {
 
-    internal class Student : ICloneable
+    internal class Student : ICloneable, IEnumerable<int>
     {
         internal string surName;
         internal string name;
@@ -19,6 +20,66 @@ namespace ClassHomework
         private List<int> credits;       // Зачёты
         private List<int> courseWorks;   // Курсовые работы
         private List<int> exams;         // Экзамены
+
+
+        //________________________ IEnumerable _____________________________________________________
+
+        public IEnumerator<int> GetEnumerator()
+        {
+            return new studentEnumerator(credits);
+        }
+
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator(); 
+        }
+
+        public class studentEnumerator:IEnumerator<int>
+        {
+            private List<int> studentCredits;
+            private int index = -1;
+            public int Current
+            {
+                get
+                {
+                    return studentCredits[index];
+                }
+            }
+            object IEnumerator.Current
+            {
+                get
+                {
+                    return Current;
+                }
+            }
+            public bool MoveNext()
+            {
+                index++;
+                if (index < studentCredits.Count())
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            public void Reset ()
+            {
+                index = -1;
+            }
+
+            public studentEnumerator (List <int> credits)
+            {
+                studentCredits = credits;
+            }
+
+            public void Dispose()
+            {
+
+            }
+        }
+
 
 
         //________________________ IComparer_____________________________________________________
