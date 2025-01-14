@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -192,6 +193,12 @@ namespace ClassHomework
         {
             students.Add(student);
         }
+        // Удаление студента
+        public void DeleteStudent(int index)
+        {
+            this.students.RemoveAt(index); 
+        }
+
 
         // Показ всех студентов с сортировкой по фамилии и имени
         public void ShowAllStudents()
