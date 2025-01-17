@@ -22,6 +22,7 @@ namespace ClassHomework
         private List<int> exams;         // Экзамены
 
 
+        
         //________________________ IEnumerable _____________________________________________________
 
         public IEnumerator<int> GetEnumerator()
@@ -312,6 +313,49 @@ namespace ClassHomework
         }
         #endregion
 
+        // ____________________ Подсчёт количества оценок ______________________________________________________
+
+        public int numberOfAllCredits ()
+        {
+            return (this.GetCredits().Count() + this.GetCourseWorks().Count() + this.GetExams().Count());
+        }
+        public int sumOfAllCredits()
+        {
+            var allGrades = new List<int>();
+            allGrades.AddRange(credits);
+            allGrades.AddRange(courseWorks);
+            allGrades.AddRange(exams);
+
+            if (allGrades.Count == 0) return 0;
+
+            int sum = 0;
+            foreach (var grade in allGrades)
+                sum += grade;
+
+            return sum;
+        }
+
+        public bool sameStudents (List<Student> g)
+        {
+            List<int> sumOfAllCredits = new List<int>();
+            List<int> numberOfAllCredits = new List<int>();
+            foreach (Student student in g)
+            {
+                sumOfAllCredits.Add(student.sumOfAllCredits());
+                numberOfAllCredits.Add(student.numberOfAllCredits());
+            }
+            for (int i = 0; i < g.Count(); i++)
+            {
+                if (this.sumOfAllCredits() == sumOfAllCredits[i] &&
+                    this.numberOfAllCredits() == numberOfAllCredits[i] &&
+                    !this.Equals(g[i]))
+                {
+                    return true;  
+                }
+            }
+
+            return false; 
+        }
 
         // ____________________ Подсчёт среднего балла ______________________________________________________
         #region Подсчёт среднего балла
@@ -373,7 +417,8 @@ namespace ClassHomework
         {
             if (some_student is Student other)
             {
-                return this.GetAverageGrade() == other.GetAverageGrade();
+                return ReferenceEquals(this, other);
+                //return this.GetAverageGrade() == other.GetAverageGrade();
             }
             return false;
         }

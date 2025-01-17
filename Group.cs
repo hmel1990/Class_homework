@@ -19,6 +19,41 @@ namespace ClassHomework
         private string specialization;
         private int courseNumber;
 
+        //________________________ Delegate _____________________________________________________
+
+        public delegate bool StudentFilter(Student student);
+
+        public delegate bool StudentsInGroupFilter(Group g, Student student);
+
+
+        public List <Student> FilterStudents (StudentFilter del)
+        {
+            List<Student> filteredStudents = new List<Student>();
+
+            foreach (Student student in this.students)
+            {
+                if (del(student))
+                {
+                    filteredStudents.Add (student);
+                }
+            }
+            return filteredStudents;
+        }
+
+        //public List<Student> FilterStudents(Group group, StudentsInGroupFilter del)
+        //{
+        //    List <Student> filteredStudents = new List<Student>();
+        //    foreach (Student student in group.students)
+        //    {
+        //        if (del(group, student))
+        //        {
+        //            filteredStudents.Add(student);
+        //        }
+        //    }
+        //    if (filteredStudents.Count <= 0) Console.WriteLine("There is no same students");
+        //    return filteredStudents;
+        //}
+
 
         //________________________ IEnumerable _____________________________________________________
         public IEnumerator<Student> GetEnumerator()
